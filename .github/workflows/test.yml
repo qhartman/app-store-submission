@@ -7,13 +7,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
         python-version: '3.9'
+    
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+
+    - name: Create dummy private key file
+      run: echo "dummy private key content" > private_key.p8
+
+    - name: Create dummy What's New file
+      run: echo "New features and improvements" > whats_new.txt
+
     - name: Run tests
+      env:
+        APP_STORE_KEY_ID: ${{ secrets.APP_STORE_KEY_ID }}
+        APP_STORE_ISSUER_ID: ${{ secrets.APP_STORE_ISSUER_ID }}
+        APP_STORE_APP_ID: ${{ secrets.APP_STORE_APP_ID }}
+        GOOGLE_PLAY_JSON_KEY: ${{ secrets.GOOGLE_PLAY_JSON_KEY }}
+        GOOGLE_PLAY_PACKAGE_NAME: ${{ secrets.GOOGLE_PLAY_PACKAGE_NAME }}
       run: python -m unittest test_app_store_submit.py
+
+    - name: Clean up
+      run: |
+        rm private_key.p8
+        rm whats_new.txt

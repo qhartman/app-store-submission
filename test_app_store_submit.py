@@ -1,6 +1,15 @@
 import unittest
 from unittest.mock import patch, mock_open, MagicMock
 import json
+import os
+
+# mock values of env values for testing locally
+os.environ['APP_STORE_KEY_ID'] = 'dummy_key_id'
+os.environ['APP_STORE_ISSUER_ID'] = 'dummy_issuer_id'
+os.environ['APP_STORE_APP_ID'] = 'dummy_app_id'
+os.environ['GOOGLE_PLAY_JSON_KEY'] = json.dumps({"type": "service_account", "project_id": "dummy_project"})
+os.environ['GOOGLE_PLAY_PACKAGE_NAME'] = 'com.example.app'
+
 from app_store_submit import (
     generate_jwt,
     make_app_store_api_request,
