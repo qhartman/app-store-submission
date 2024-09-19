@@ -1,0 +1,61 @@
+name: 'Submit to App Stores'
+description: 'Submit the latest build to App Store Review and promote internal testing build to production on Google Play Store'
+inputs:
+  app_store_key_id:
+    description: 'App Store Connect API Key ID'
+    required: true
+  app_store_issuer_id:
+    description: 'App Store Connect API Issuer ID'
+    required: true
+  app_store_private_key:
+    description: 'App Store Connect API Private Key (.p8 file contents)'
+    required: true
+  app_store_app_id:
+    description: 'Your app''s Apple ID in App Store Connect'
+    required: true
+  whats_new_file:
+    description: 'Path to the file containing "What''s New" text'
+    required: false
+    default: 'whats_new.txt'
+  google_play_json_key:
+    description: 'Google Play Service Account JSON key'
+    required: true
+  google_play_package_name:
+    description: 'Your app''s package name on Google Play'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install PyJWT==2.3.0 cryptography==36.0.1 requests==2.27.1 google-auth==2.3.3 google-auth-httplib2==0.1.0 google-api-python-client==2.31.0
+      shell: bash
+
+    - name: Run tests
+      run: python -m unittest test_app_store_submit.py
+      shell: bash
+
+    - name: Create private key file
+      run: echo "${{ inputs.app_store_private_key }}" > private_key.p8
+      shell: bash
+
+    - name: Run submission script
+      run: python ${{ github.action_path }}/app_store_submit.py
+      env:
+        APP_STORE_KEY_ID: ${{ inputs.app_store_key_id }}
+        APP_STORE_ISSUER_ID: ${{ inputs.app_store_issuer_id }}
+        APP_STORE_APP_ID: ${{ inputs.app_store_app_id }}
+        WHATS_NEW_FILE: ${{ inputs.whats_new_file }}
+        GOOGLE_PLAY_JSON_KEY: ${{ inputs.google_play_json_key }}
+        GOOGLE_PLAY_PACKAGE_NAME: ${{ inputs.google_play_package_name }}
+      shell: bash
+
+    - name: Clean up
+      run: rm private_key.p8
+      shell: bash
