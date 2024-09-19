@@ -20,7 +20,7 @@ jobs:
         echo "- Bug fixes and performance improvements" >> whats_new.txt
 
     - name: Submit to App Stores
-      uses: yourusername/app-store-google-play-submit-action@v2.0.0
+      uses: qhartman/app-store-submission@v1
       with:
         app_store_key_id: ${{ secrets.APP_STORE_KEY_ID }}
         app_store_issuer_id: ${{ secrets.APP_STORE_ISSUER_ID }}
