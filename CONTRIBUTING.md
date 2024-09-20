@@ -1,10 +1,10 @@
 # Contributing to App Store and Google Play Store Submission Action
 
-First off, thank you for considering contributing to the App Store and Google Play Store Submission Action! It's people like you that make it a great tool for everyone.
+First off, thank you for considering contributing to the App Store and Google Play Store Submission Action! It's people like you that will make it a great tool for everyone.
 
 ## Code of Conduct
 
-By participating in this project, you are expected to uphold our Code of Conduct. Please report unacceptable behavior to [INSERT EMAIL HERE].
+By participating in this project, you are expected to uphold our Code of Conduct. Currently that code of conduct is "don't be an ass". If it needs to get more detailed it will. Please report unacceptable behavior to the maintainer of the project.
 
 ## How Can I Contribute?
 
