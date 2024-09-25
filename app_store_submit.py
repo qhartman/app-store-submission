@@ -6,11 +6,12 @@ import json
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from cryptography.hazmat.primitives import serialization
+from cryptography.hazmat.primitives.asymmetric import ec
 
 # App Store Connect API Key information
 app_store_key_id = os.environ['APP_STORE_KEY_ID']
 app_store_issuer_id = os.environ['APP_STORE_ISSUER_ID']
-app_store_key_file = 'private_key.p8'
+app_store_private_key = os.environ['APP_STORE_PRIVATE_KEY']
 app_store_app_id = os.environ['APP_STORE_APP_ID']
 whats_new_file = os.environ.get('WHATS_NEW_FILE', 'whats_new.txt')
 
@@ -19,8 +20,11 @@ google_play_json_key = os.environ['GOOGLE_PLAY_JSON_KEY']
 google_play_package_name = os.environ['GOOGLE_PLAY_PACKAGE_NAME']
 
 def generate_jwt():
-    with open(app_store_key_file, 'rb') as f:
-        private_key = f.read()
+    private_key = serialization.load_pem_private_key(
+        app_store_private_key.encode(),
+        password=None,
+        backend=None
+    )
 
     header = {
         'alg': 'ES256',
@@ -33,8 +37,7 @@ def generate_jwt():
         'aud': 'appstoreconnect-v1'
     }
 
-    key = serialization.load_pem_private_key(private_key, password=None)
-    return jwt.encode(payload, key, algorithm='ES256', headers=header)
+    return jwt.encode(payload, private_key, algorithm='ES256', headers=header)
 
 def make_app_store_api_request(endpoint, method="GET", json_data=None):
     base_url = "https://api.appstoreconnect.apple.com/v1"
