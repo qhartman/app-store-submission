@@ -51,6 +51,7 @@ def make_app_store_api_request(endpoint, method="GET", json_data=None):
         "Authorization": f"Bearer {generate_jwt()}",
         "Content-Type": "application/json"
     }
+    print(f"headers: {headers}")
     response = requests.request(method, url, headers=headers, json=json_data)
     response.raise_for_status()
     return response.json()
