@@ -60,7 +60,7 @@ def get_latest_app_store_build():
     build = builds['data'][0]
     build_id = build['id']
     version_string = build['attributes']['version']
-    bundle_version = build['attributes']['cfBundleShortVersionString']
+    #bundle_version = build['attributes']['cfBundleShortVersionString']
 
     return build_id, version_string, bundle_version
 
@@ -175,21 +175,21 @@ def main():
         print(f"App Store build number: {build_number}")
         print(f"App Store version string: {version_string}")
 
-        new_version = create_app_store_version(build_id, version_string)
-        version_id = new_version['data']['id']
-        print(f"Created new App Store version with ID: {version_id}")
+        #new_version = create_app_store_version(build_id, version_string)
+        #version_id = new_version['data']['id']
+        #print(f"Created new App Store version with ID: {version_id}")
 
-        update_app_store_version(version_id, whats_new_text)
-        print("Updated App Store version with 'What's New' text")
+        #update_app_store_version(version_id, whats_new_text)
+        #print("Updated App Store version with 'What's New' text")
 
-        submit_app_store_for_review(version_id)
-        print("Submitted to App Store for review successfully")
+        #submit_app_store_for_review(version_id)
+        #print("Submitted to App Store for review successfully")
 
         # Google Play Store submission
-        print("\nStarting Google Play Store promotion process...")
-        service = setup_google_play_api()
-        promote_to_google_play_production(service, google_play_package_name, whats_new_text)
-        print("Promoted Google Play app to production successfully")
+        #print("\nStarting Google Play Store promotion process...")
+        #service = setup_google_play_api()
+        #promote_to_google_play_production(service, google_play_package_name, whats_new_text)
+        #print("Promoted Google Play app to production successfully")
 
     except Exception as e:
         print(f"An error occurred: {e}")
