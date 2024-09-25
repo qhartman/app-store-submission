@@ -62,7 +62,7 @@ def get_latest_app_store_build():
     version_string = build['attributes']['version']
     #bundle_version = build['attributes']['cfBundleShortVersionString']
 
-    return build_id, version_string, bundle_version
+    return build_id, version_string, version_string #bundle_version
 
 def create_app_store_version(build_id, version_string):
     json_data = {
