@@ -18,6 +18,31 @@ Before you can use this action, you need to set up the following:
 4. A Google Play Service Account JSON key with the necessary permissions
 5. Your Android app's package name
 
+### Obtaining an App Store Connect API Key
+
+1. Log in to [App Store Connect](https://appstoreconnect.apple.com/).
+2. Go to "Users and Access" and then click on the "Keys" tab.
+3. Click the "+" button to create a new key.
+4. Give your key a name and select the appropriate access permissions.
+5. Click "Generate" and immediately download the generated .p8 file (you won't be able to download it again).
+6. Note down the Key ID and the Issuer ID (visible at the top of the keys page).
+
+### Obtaining a Google Play Service Account JSON Key
+
+1. Go to the [Google Play Console](https://play.google.com/console/) as the account holder.
+2. Navigate to Setup > API Access.
+3. Click on "Create new service account".
+4. Follow the link to the Google Cloud Platform.
+5. In the GCP Console, go to IAM & Admin > Service Accounts.
+6. Click "Create Service Account".
+7. Give it a name and click "Create".
+8. For the role, choose "Basic" > "Editor".
+9. Click "Continue" and then "Done".
+10. On the Service Accounts page, find the account you just created and click on the three dots menu > "Manage keys".
+11. Click "Add Key" > "Create new key". Choose JSON as the key type.
+12. A JSON file will be downloaded. Keep this file secure.
+13. Back in the Play Console, click "Grant Access" for the newly created service account.
+14. Choose the appropriate permissions for this service account.
 ## Usage
 
 To use this action in your workflow, add the following step:
