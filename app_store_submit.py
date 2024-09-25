@@ -60,13 +60,8 @@ def get_latest_app_store_build():
     build = builds['data'][0]
     build_id = build['id']
     version_string = build['attributes']['version']
-    
-    bundle_version = next(
-        item['attributes']['cfBundleShortVersionString']
-        for item in builds['included']
-        if item['type'] == 'buildBundles'
-    )
-    
+    bundle_version = build['attributes']['cfBundleShortVersionString']
+
     return build_id, version_string, bundle_version
 
 def create_app_store_version(build_id, version_string):
