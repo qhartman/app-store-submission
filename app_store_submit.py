@@ -51,13 +51,12 @@ def make_app_store_api_request(endpoint, method="GET", json_data=None):
         "Authorization": f"Bearer {generate_jwt()}",
         "Content-Type": "application/json"
     }
-    print(f"headers: {headers}")
     response = requests.request(method, url, headers=headers, json=json_data)
     response.raise_for_status()
     return response.json()
 
 def get_latest_app_store_build():
-    builds = make_app_store_api_request(f"/apps/{app_store_app_id}/builds?sort=-version&limit=1&include=buildBundle")
+    builds = make_app_store_api_request(f"/apps/{app_store_app_id}/builds?limit=1&fields=buildBundles")
     build = builds['data'][0]
     build_id = build['id']
     version_string = build['attributes']['version']
