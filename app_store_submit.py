@@ -28,11 +28,13 @@ def generate_jwt():
 
     header = {
         'alg': 'ES256',
-        'kid': app_store_key_id
+        'kid': app_store_key_id,
+        'typ': 'JWT'
     }
 
     payload = {
         'iss': app_store_issuer_id,
+        'iat': int(time.time())
         'exp': int(time.time()) + 20 * 60,  # Token expires in 20 minutes
         'aud': 'appstoreconnect-v1'
     }
