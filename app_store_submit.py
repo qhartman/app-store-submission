@@ -1,8 +1,9 @@
 import jwt
-import time
 import requests
 import os
 import json
+from datetime import datetime, timedelta
+from time import time, mktime
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from cryptography.hazmat.primitives import serialization
@@ -26,16 +27,18 @@ def generate_jwt():
         backend=None
     )
 
+    dt = datetime.now() + timedelta(minutes=20)
+
     header = {
         'alg': 'ES256',
         'kid': app_store_key_id,
-        'typ': 'JWT'
+        'typ': 'JWT',
     }
 
     payload = {
         'iss': app_store_issuer_id,
-        'iat': int(time.time()),
-        'exp': int(time.time()) + 20 * 60,  # Token expires in 20 minutes
+        "iat": int(time()),
+        "exp": int(mktime(dt.timetuple())),
         'aud': 'appstoreconnect-v1'
     }
 
