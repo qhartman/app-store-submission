@@ -72,13 +72,9 @@ def get_latest_app_store_build():
     # Get the latest build
     latest_build = sorted_builds[0]
     build_id = latest_build['id']
-    build_number = latest_build['attributes']['version']
+    build_number = latest_build['attributes']['buildNumber']
+    version_string = latest_build['attributes']['version']
     
-    # Make an additional API call to get the build details including the CFBundleShortVersionString
-    build_details = make_app_store_api_request(f"/builds/{build_id}")
-    
-    # Extract the CFBundleShortVersionString (which is the version string we need)
-    version_string = build_details['data']['attributes']['appVersion']
 
     return build_id, build_number, version_string
 
