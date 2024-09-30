@@ -72,7 +72,7 @@ def get_latest_app_store_build():
     # Get the latest build
     latest_build = sorted_builds[0]
     build_id = latest_build['id']
-    build_number = latest_build['attributes']['buildNumber']
+    build_number = latest_build['attributes']['version']
     version_string = latest_build['attributes']['version']
     
 
