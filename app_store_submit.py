@@ -57,7 +57,7 @@ def make_app_store_api_request(endpoint, method="GET", json_data=None):
 
 def get_latest_app_store_build():
     # Get all builds
-    builds_response = make_app_store_api_request(f"/builds?filter[app]={app_store_app_id}&sort=-version&fields[builds]=version&filter[preReleaseVersion.version]={version_num}&limit=1")
+    builds_response = make_app_store_api_request(f"/builds?filter[app]={app_store_app_id}&sort=-version&fields[builds]=version&limit=1")
     if not builds_response['data']:
         raise Exception("No builds found for the app")
     
