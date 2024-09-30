@@ -56,17 +56,21 @@ def make_app_store_api_request(endpoint, method="GET", json_data=None):
     return response.json()
 
 def get_latest_app_store_build():
-    # First, get the latest version submitted to App Store
-    versions_response = make_app_store_api_request(f"/apps/{app_store_app_id}/appStoreVersions?sort=-version")
-    latest_version = versions_response['data'][0]
+    # Get all app store versions
+    versions_response = make_app_store_api_request(f"/apps/{app_store_app_id}/appStoreVersions")
+    
+    # Find the version with the highest version number
+    latest_version = max(versions_response['data'], key=lambda x: x['attributes']['versionString'])
     version_string = latest_version['attributes']['versionString']
 
-    # Then, get the build for this version
-    builds_response = make_app_store_api_request(f"/apps/{app_store_app_id}/builds?filter[version]={version_string}&sort=-uploadedDate")
+    # Get builds for this version
+    builds_response = make_app_store_api_request(f"/apps/{app_store_app_id}/builds?filter[version]={version_string}")
+    
     if not builds_response['data']:
         raise Exception(f"No builds found for version {version_string}")
     
-    latest_build = builds_response['data'][0]
+    # Find the build with the highest build number
+    latest_build = max(builds_response['data'], key=lambda x: x['attributes']['version'])
     build_id = latest_build['id']
     build_number = latest_build['attributes']['version']
 
