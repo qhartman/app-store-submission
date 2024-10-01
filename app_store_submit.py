@@ -65,7 +65,7 @@ def get_latest_app_store_build():
     # Get the latest build
     build_id = builds_response['data'][0]['id']
     build_number = builds_response['data'][0]['attributes']['version']
-    version_string = make_app_store_api_request(f"/builds/{build_id}")
+    version_string = make_app_store_api_request(f"/builds/{build_id}/preReleaseVersion")
     
 
     return build_id, build_number, version_string
