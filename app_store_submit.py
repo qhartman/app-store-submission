@@ -86,20 +86,20 @@ def create_app_store_version(build_id, version_string):
     }
     
     return make_app_store_api_request("/appStoreVersions", method="POST", json_data=json_data)
+# this needs error handling if a version already exists
 
 def update_app_store_version(version_id, whats_new_text):
     json_data = {
         "data": {
-            "type": "appStoreVersions",
+            "type": "appStoreVersionLocalizations",
             "id": version_id,
             "attributes": {
-                "releaseNotes": whats_new_text,
-                "releaseType": "AFTER_APPROVAL"
+                "whatsNew": whats_new_text
             }
         }
     }
 
-    return make_app_store_api_request(f"/appStoreVersions/{version_id}", method="PATCH", json_data=json_data)
+    return make_app_store_api_request(f"/appStoreVersionLocalizations/{version_id}", method="PATCH", json_data=json_data)
 
 def submit_app_store_for_review(version_id):
     json_data = {
@@ -181,11 +181,11 @@ def main():
         print(f"App Store build number: {build_number}")
         print(f"App Store version string: {version_string}")
 
-        new_version = create_app_store_version(build_id, version_string)
-        version_id = new_version['data']['id']
-        print(f"Created new App Store version with ID: {version_id}")
+        #new_version = create_app_store_version(build_id, version_string)
+        #version_id = new_version['data']['id']
+        #print(f"Created new App Store version with ID: {version_id}")
 
-        update_app_store_version(version_id, whats_new_text)
+        update_app_store_version('5303c4e6-c90c-4718-89a4-c4d8e1d7f005', whats_new_text)
         print("Updated App Store version with 'What's New' text")
 
         #submit_app_store_for_review(version_id)
