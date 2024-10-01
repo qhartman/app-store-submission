@@ -185,7 +185,7 @@ def main():
         #version_id = new_version['data']['id']
         #print(f"Created new App Store version with ID: {version_id}")
 
-        update_app_store_version('5303c4e6-c90c-4718-89a4-c4d8e1d7f005', whats_new_text)
+        update_app_store_version('0ded51c4-0257-4a1c-9ecb-dae43bd3e048', whats_new_text)
         print("Updated App Store version with 'What's New' text")
 
         #submit_app_store_for_review(version_id)
