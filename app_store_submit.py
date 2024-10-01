@@ -181,12 +181,12 @@ def main():
         print(f"App Store build number: {build_number}")
         print(f"App Store version string: {version_string}")
 
-        #new_version = create_app_store_version(build_id, version_string)
-        #version_id = new_version['data']['id']
-        #print(f"Created new App Store version with ID: {version_id}")
+        new_version = create_app_store_version(build_id, version_string)
+        version_id = new_version['data']['id']
+        print(f"Created new App Store version with ID: {version_id}")
 
-        #update_app_store_version(version_id, whats_new_text)
-        #print("Updated App Store version with 'What's New' text")
+        update_app_store_version(version_id, whats_new_text)
+        print("Updated App Store version with 'What's New' text")
 
         #submit_app_store_for_review(version_id)
         #print("Submitted to App Store for review successfully")
