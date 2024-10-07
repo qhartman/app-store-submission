@@ -1,3 +1,5 @@
+## This action is still a WIP. Please do not use it unless you are prepared to find and fix issues.
+
 # App Store and Google Play Store Submission Action
 
 This GitHub Action automates the process of submitting your latest TestFlight build to App Store Review and promoting your internal testing build to production on Google Play Store. It simplifies the app submission workflow, allowing you to integrate app submissions directly into your CI/CD pipeline for both iOS and Android platforms.
